@@ -1,3 +1,5 @@
+import time
+
 import PySimpleGUI as sg
 import webbrowser
 from typing import List
@@ -25,7 +27,7 @@ def set_layout() -> List:
         [sg.Text(APP_NAME, font=("Arial Bold", 15), justification="center")],  # Title
 
         [sg.Text("Open problem directory:")],
-        [sg.InputText(key=FOLDER_KEY), sg.FolderBrowse()],
+        [sg.InputText(key=FOLDER_KEY), sg.FolderBrowse(button_text="Add problem")],
 
         [
             sg.Text("Open solution file:"),
@@ -34,7 +36,7 @@ def set_layout() -> List:
                 text_color="red",
             ),
         ],
-        [sg.InputText(key=SOL_KEY), sg.FileBrowse()],
+        [sg.InputText(key=SOL_KEY), sg.FileBrowse(file_types=(("C++/Python", "*.cpp *.py"),))],
 
         [sg.Button("Check solution", key=RUN)],  # Run button
 
@@ -69,6 +71,9 @@ def main_loop(window) -> None:
             problem_path = values[FOLDER_KEY]
             sol_path = values[SOL_KEY]
             if problem_path:
+                window[OUT_WINDOW].print(f"Running tests...")
+                window.refresh()
+
                 result = run_tests(problem_path, sol_path)
                 for line in result:
                     window[OUT_WINDOW].print(line, colors=("green" if "OK" in line else "red"))
