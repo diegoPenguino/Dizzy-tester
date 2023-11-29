@@ -2,6 +2,9 @@
 Automated tester for _**python/c++**_ solutions to Competitive Programming problems.<br>
 Created fully in Python.
 
+Basically, like an online judge, but local and simpler(for now).
+I use it when I need to test my solutions for problems I'm setting up.
+
 ## Requirements:
 Python >= 3.9
 
